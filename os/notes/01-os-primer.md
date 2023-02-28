@@ -50,14 +50,26 @@ Multiprogramming operating systems can be classified on the basis of the followi
 > Preemptive scheduling is used when a process switches from running state to ready state or from the waiting state to ready state. The resources (mainly CPU cycles) are allocated to the process for a limited amount of time and then taken away, and the process is again placed back in the ready queue if that process still has CPU burst time remaining. That process stays in the ready queue till it gets its next chance to execute. 
 
 ## Processes
+A process is an instance of a program that is running on our system.
 
-We install a lot of different applications on are system. An application is a program that we can run on our system. For instance, we can run a web browser, a text editor, etc. Each of these applications is a program. However, each of these applications is a different program. When we install an application, it is installed as a file on our system. When we run the application, the operating system loads the application into memory and runs it. When we run an application, the operating system creates a process for the application.
+An application is a program that we can run on our system. e.g. web browser, a text editor, etc.
+* Each of these applications is a program. 
+* We install a lot of different applications on are system.  
 
-A process is an instance of a program. A process is a program that is running on our system. When we run an application, the operating system creates a process for the application. When we run multiple applications, the operating system creates multiple processes for the applications. Each process has its own memory space. A process can access the memory of other processes. However, a process cannot access the memory of another process.
+When we install an application, 
+  * it is installed as a file on our system. 
+  * the operating system loads the application into memory and runs it. 
 
-When the process is created by the operating system it creates a data structure to store the information of that process. This is known as Process Control Block (PCB). Process Control block (PCB) is a data structure that stores information of a process. 
 
+When we run an application, 
+* the operating system creates a process for the application.
+
+When we run multiple applications, 
+* the operating system creates multiple processes for the applications.
+
+### Process Control Block (PCB)
 ![Process Control Block](https://scaler.com/topics/images/pcb-in-os.webp)
+When the process is created by the operating system it creates a data structure to store the information of that process - called **Process Control Block (PCB)**.
 
 It's the job of the operating system to assign a CPU to a process as the process doesn't need a CPU all the time. Let's take an example of the input/output process, they are only used by the CPU when triggered.
 
@@ -70,25 +82,32 @@ The process control block contains many attributes such as process ID, process s
 ### Types of Processes
 
 A process can be classified into the following types:
-* `I/O bound process` - An I/O bound process spends most of its time waiting for I/O operations to complete. For instance, a process that reads data from a file spends most of its time waiting for the data to be read from the file. An I/O bound process spends most of its time waiting for I/O operations to complete. For instance, a process that reads data from a file spends most of its time waiting for the data to be read from the file.
-* `CPU bound process` - A CPU bound process spends most of its time executing instructions. For instance, a process that performs a lot of computations spends most of its time executing instructions. A CPU bound process spends most of its time executing instructions. For instance, a process that performs a lot of computations spends most of its time executing instructions.
+* `I/O bound process` - An I/O bound process spends most of its time waiting for I/O operations to complete.</br> For instance, a process that reads data from a file spends most of its time waiting for the data to be read from the file.
+* `CPU bound process` - A CPU bound process spends most of its time executing instructions. </br>For instance, a process that performs a lot of computations spends most of its time executing instructions.
 
 ## Scheduling Algorithms
 
 ### Why do we need Scheduling Algorithms?
 
-A process to complete its execution needs both CPU time and I/O time. In a multiprogramming system, there can be one process using CPU while another is waiting for I/O whereas, in a uni programming system, time spent waiting for I/O is completely wasted as CPU is idle at this time. The multiprogramming can be achieved by the use of process scheduling.
+A process to complete its execution needs both CPU time and I/O time.\
+In `Uni programming system`, time spent waiting for I/O is completely wasted as CPU is idle at this time. \
+In `Multiprogramming system`, there can be one process using CPU while another is waiting for I/O. The multiprogramming can be achieved by the use of process scheduling.
 
-The objectives of a scheduling algorithm are as follows:
+**The objectives of a `scheduling algorithm` are as follows:**
 
-* Maximize the CPU utilization, meaning that keep the CPU as busy as possible.
+* Maximize the CPU utilization, (keep the CPU as busy as possible).
 * Fair allocation of CPU time to every process
-* Maximize the Throughput
-* Minimize the turnaround time
-* Minimize the waiting time
-* Minimize the response time
+* Maximize the Throughput (Number of Processes completed per unit time)
+* Minimize the turnaround time (Time taken by a process since it enters a ready queue , till complete execution)
+* Minimize the waiting time (Time spent by process in the Ready Queue)
+* Minimize the response time (amount of time from when a request was submitted until first response was recorded)
 
-To achieve these objectives, we need to have a scheduling algorithm. A scheduling algorithm is an algorithm that decides which process to run next. To demonstrate the various scheduling algorithms, we will use the following processes:
+To achieve these objectives, we need to have a scheduling algorithm.
+
+### Scheduling Algorithms
+A `Scheduling Algorithm` is an algorithm that decides which process to run next.  
+
+To demonstrate the various scheduling algorithms, we will use the following processes:
 
 | Process | Arrival Time | Burst Time |
 | :------ | :----------- | :--------- |
@@ -98,56 +117,27 @@ To achieve these objectives, we need to have a scheduling algorithm. A schedulin
 | P4      | 4            | 4          |
 
 
-### First Come First Serve (FCFS)
+#### First Come First Serve (FCFS)
 
-First Come First Serve (FCFS) is a non-preemptive scheduling algorithm. In this algorithm, the process that comes first is executed first. If two processes arrive at the same time, then the process that comes first in the ready queue is executed first. This can be decided on the basis of the process ID or the burst time.
+First Come First Serve (FCFS) is a `non-preemptive scheduling algorithm`.
+* In this algorithm, the process that comes first is executed first.
+* If two processes arrive at the same time, then the process that comes first in the ready queue is executed first.
+* This can be decided on the basis of the process ID or the burst time.
 
-Let us take the example of the above processes. The process P3 arrives first, so it is executed first. The process P2 arrives next, so it is executed next. The process P1 arrives next, so it is executed next. The process P4 arrives last, so it is executed last.
-
-**At time t=0**
-
-At time t=0, the process P3 arrives. So, it is executed first. The process P3 is executed for 3 time units. The process P3 is completed at time t=3.
-
-![First Come First Serve](https://scaler.com/topics/images/gantt-chart-in-fcfs-scheduling.webp)
-
-**At time t=1**
-
-At time t=1, the process P2 arrives, but it cannot be executed as the process P3 is still executing. So, the process P2 is added to the ready queue.    
-
-**At time t=2**
-
-At time t=2, the process P1 arrives, but it cannot be executed as the process P3 is still executing. So, the process P1 is added to the ready queue. Now, there are two processes in the ready queue, P2 and P1.
-
-**At time t=3**
-
-Process P3 is completed at time t=3. So, the process P2 is executed next. The process P2 is executed for 8 time units. The process P2 is completed at time t=11.
-
-![First Come First Serve](https://scaler.com/topics/images/gantt-chart-4-is-fcfs-scheduling.webp)
-
-**At time t=4**
-
-At time t=4, the process P4 arrives, but it cannot be executed as the process P2 is still executing. So, the process P4 is added to the ready queue. Now, there are two processes in the ready queue, P1, and P4.
-
-**At time t=11**
-
-Process P2 is completed at time t=11. So, the process P1 is executed next. The process P1 is executed for 6 time units. The process P1 is completed at time t=17.
-
-**At time t=17**
-
-Process P1 is completed at time t=17. So, the process P4 is executed next. The process P4 is executed for 4 time units. The process P4 is completed at time t=21.
-
-**At time t=21**
-
-Process P4 is completed at time t=21. So, there are no more processes to execute.
+Let us take the example of the above processes.  
+* The process P3 arrives first, so it is executed first. 
+* The process P2 arrives next, so it is executed next. 
+* The process P1 arrives next, so it is executed next. 
+* The process P4 arrives last, so it is executed last.
 
 ![First Come First Serve](https://scaler.com/topics/images/gantt-chart-6-in-fcfs-scheduling.webp)
 
-#### Advantages
+##### Advantages
 * Involves no complex logic and just picks processes from the ready queue one by one.
 * Easy to implement and understand.
 * Every process will eventually get a chance to run so no starvation occurs.
 
-#### Disadvantages
+##### Disadvantages
 * Waiting time for processes with less execution time is often very long.
 * It favors CPU-bound processes then I/O processes.
 * Leads to [convoy effect](https://www.codingninjas.com/codestudio/library/convoy-effect#:~:text=First%20Serve%20Algorithm-,What%20is%20the%20Convoy%20Effect%3F,the%20current%20one%20is%20finished.).
@@ -156,9 +146,9 @@ Process P4 is completed at time t=21. So, there are no more processes to execute
 
 ---
 
-### Shortest Remaining Time First (SRTF)
+#### Shortest Remaining Time First (SRTF)
 
-Shortest Remaining Time First (SRTF) is a preemptive scheduling algorithm. In this algorithm, the process that has the least remaining time is executed next. If two processes have the same remaining time, then the process that comes first in the ready queue is executed next. This can be decided on the basis of the process ID or the burst time.
+Shortest Remaining Time First (SRTF) is a `preemptive scheduling algorithm`. In this algorithm, the process that has the least remaining time is executed next. If two processes have the same remaining time, then the process that comes first in the ready queue is executed next. This can be decided on the basis of the process ID or the burst time.
 
 The algorithm runs whenever a process is completed or a new process arrives. The algorithm is as follows:
 * If the ready queue is empty, then the CPU remains idle.
@@ -237,15 +227,15 @@ At time t=13, the process P1 is completed. So, the process P2 is executed next.
 
 At time t=21, the process P2 is completed. So, there are no more processes to execute.
 
-#### Advantages
+##### Advantages
 * Processes are executed faster than SJF, being the preemptive version of it.
 
-#### Disadvantages
+##### Disadvantages
 * Context switching is done a lot more times and adds to the more overhead time.
 * It may still lead to starvation and requires the knowledge of process time beforehand.
 * Impossible to implement in interactive systems where the required CPU time is unknown.
 
-## References
+### References
 * [What is an OS?](https://www.scaler.com/topics/operating-system/what-is-operating-system/)
 * [Scheduling Algorithms](https://www.scaler.com/topics/operating-system/scheduling-algorithms-in-os/)
 * [First Come First Serve (FCFS) Scheduling Algorithm](https://www.scaler.com/topics/first-come-first-serve/)
