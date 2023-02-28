@@ -14,13 +14,22 @@
   - [Reading List](#reading-list)
 ## Round Robin
 
-> Round-robin (RR) is one of the algorithms employed by process and network schedulers in computing. As the term is generally used, time slices (also known as time quanta) are assigned to each process in equal portions and in circular order, handling all processes without priority (also known as cyclic executive). Round-robin scheduling is simple, easy to implement, and starvation-free. Round-robin scheduling can be applied to other scheduling problems, such as data packet scheduling in computer networks.
+One of the major problems with SRTF (Shortest Remaining Time First) is that it can lead to starvation. This is because a process with a long burst time can be starved of CPU time.
+> The requirement is to have a scheduling algorithm that is fair to all processes so that all processes are progressing and they have lower waiting times. This is where Round Robin scheduling comes in.
 
-One of the major problems with SRTF is that it can lead to starvation. This is because a process with a long burst time can be starved of CPU time. Often the requirement is to have a scheduling algorithm that is fair to all processes so that all processes are progressing and they have lower waiting times. This is where Round Robin scheduling comes in.
+Round Robin scheduling is a <u>preemptive scheduling algorithm</u>. This means that the scheduler can preempt a process and give the CPU to another process.
+* It is one of the algorithms employed by process and network schedulers in computing. 
+* It is simple, easy to implement, and starvation-free. 
+* It can be applied to other scheduling problems, such as data packet scheduling in computer networks.
 
-Round Robin scheduling is a preemptive scheduling algorithm. This means that the scheduler can preempt a process and give the CPU to another process. 
 
-This is done after a time slice. The time slice is the amount of time a process is allowed to run before it is preempted. The time slice is usually a small value like 10ms. This means that a process is given 10ms of CPU time and then it is preempted and another process is given 10ms of CPU time. This is repeated until all processes have been given CPU time. This is called Round Robin scheduling because the CPU is given to each process in a round robin fashion.
+
+Scheduling is done after a time slice. * <u>Time slices</u> (also known as time quanta) are assigned to each process in equal portions and in circular order, handling all processes without priority (also known as cyclic executive).
+* The time slice is the amount of time a process is allowed to run before it is preempted. 
+* The time slice is usually a small value like 10ms. 
+* This means that a process is given 10ms of CPU time and then it is preempted and another process is given 10ms of CPU time. 
+* This is repeated until all processes have been given CPU time. 
+* This is called Round Robin scheduling because the CPU is given to each process in a round robin fashion.
 
 ### Algorithm
 
@@ -30,7 +39,8 @@ This is done after a time slice. The time slice is the amount of time a process 
 * If the process is not finished, put it back in the queue.
 * Repeat the above steps till the queue is empty.
 
-![Round Robin Scheduling](https://scaler.com/topics/images/working-of-round-robin-scheduling-in-os.webp)
+<center><image  src="https://scaler.com/topics/images/working-of-round-robin-scheduling-in-os.webp" width="350"  height="350"></image></center>
+
 
 ### Example
 
@@ -154,7 +164,7 @@ The queue now looks like this:
 * P5 has finished running.
 * No more processes are left in the queue.
 
-![Round Robin Scheduling](https://scaler.com/topics/images/example-of-round-robin-scheduling-algorithm.webp)
+<center><image  src="https://scaler.com/topics/images/example-of-round-robin-scheduling-algorithm.webp" width="600"  height="200"></image></center>
 
 ### Advantages
 * This round robin algorithm offers starvation-free execution of processes.
@@ -179,8 +189,7 @@ Threads are used to solve this problem. Threads are used to perform multiple tas
 Thread is a sequential flow of tasks within a process. Threads in OS can be of the same or different types. Threads are used to increase the performance of the applications.
 Each thread has its own program counter, stack, and set of registers. But the threads of a single process might share the same code and data/file. Threads are also termed as lightweight processes as they share common resources.
 
-![Threads](https://scaler.com/topics/images/what-is-thread-in-os.webp)
-
+<center><image  src="https://scaler.com/topics/images/what-is-thread-in-os.webp" width="300"  height="200"></image></center>
 
 ### Thread vs Process
 | Process                                                                          | Thread                                                                                                     |
@@ -193,12 +202,22 @@ Each thread has its own program counter, stack, and set of registers. But the th
 | Processes are independent of each other.                                         | Threads, on the other hand, are interdependent. (i.e they can read, write or change another thread’s data) |
 | Eg: Opening two different browsers.                                              | Eg: Opening two tabs in the same browser.                                                                  |
 
-![Threads vs Process](https://scaler.com/topics/images/process-vs-thread.webp)
+<center><image  src="https://scaler.com/topics/images/process-vs-thread.webp" width="300"  height="200"></image></center>
 
+---
 ### Concurrency vs Parallelism
 
-* Concurrent - At the same time, but not necessarily at the same instant. It is possible for multiple threads to be at different stages of execution at the same time but not being processed together. A single core CPU can only execute one thread at a time. But it can switch between threads very quickly. This is called context switching. This is how concurrency is achieved. A single core CPU can have concurrency but not parallelism.
-* Parallel - At the same time and at the same instant. It is possible for multiple threads to be at different stages of execution at the same time and being processed together. A single core CPU cannot achieve parallelism. It can only achieve concurrency. A multi-core CPU can achieve both concurrency and parallelism.
+`Concurrency`
+At the same time, but not necessarily at the same instant, It is possible for multiple threads to be at different stages of execution at the same time but <u>not being processed together</u>. 
+* Concurrency is achieved by `context switching`.
+* A single core CPU can only execute one thread at a time. 
+* It can switch between threads very quickly. This is called context switching.  A single core CPU can have concurrency but not parallelism.
+
+
+`Parallel`
+At the same time and at the same instant. It is possible for multiple threads to be at different stages of execution at the same time and <u>being processed together</u>. 
+* A single core CPU cannot achieve parallelism. It can only achieve concurrency. 
+* A multi-core CPU can achieve both concurrency and parallelism.
 
 
 ### Using threads in Java
@@ -230,7 +249,7 @@ thread.start();
 
 #### Number printer
 
-**Problem Statement**
+**Problem Statement 1**
 * Create a new thread that prints the numbers from 1 to 10.
 
 **Solution**
