@@ -1,4 +1,4 @@
-package com.scaler.addersubtractor;
+package com.scaler.addersubtractor.executor;
 
 public class Count {
     private volatile int value = 0;

@@ -1,4 +1,4 @@
-package com.scaler.addersubtractor;
+package com.scaler.addersubtractor.executor;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
